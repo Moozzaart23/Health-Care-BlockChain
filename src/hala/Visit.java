@@ -28,7 +28,7 @@ public class Visit
         long diffInMillies = Math.abs(d1.getTime() - d2.getTime());
         age = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         age=age/365;
-        //System.out.println("LOL= "+age);
+        System.out.println("LOL= "+age);
         //age=period.getYears();
         weight=w;
         med=new String[n];
