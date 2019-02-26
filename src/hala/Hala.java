@@ -10,7 +10,7 @@ import java.time.Month;
 import java.text.SimpleDateFormat;
 /**
  *
- * @author ANISH
+ * @author ANISH and AKHIL
  */
 public class Hala 
 {
