@@ -26,23 +26,34 @@ public class Block
     ArrayList<Visit> v=new ArrayList<Visit> ();
     String hash;
     String previous_hash;
-    public Block(int id,String name,Date d1,int w,Visit v1,String h)
+    public Block(int id,String name,String d11,int w,ArrayList<Visit> v1,String h,String ph)
     {
-        dob=d1;
+        //dob=d1;
+        try
+        {
+            dob=new SimpleDateFormat("dd/MM/yyyy").parse(d11);
+        }
+         catch(Exception e)
+         {
+             System.out.println(e);
+         }
         uid=id;
         PatientName=name;
         //age=v1.age;
         weight=w;
-        v.add(v1);
-        no++;
-        Doctor[n++]=v1.DocName;
-        previous_hash=h;
-        hash=calculateHash();
+        //System.out.println(v1.size());
+        for(int i=0;i<v1.size();i++)
+        {
+            v.add(v1.get(i));
+        }
+        //Doctor[n++]=v1.DocName;
+        previous_hash=ph;
+        hash=h;
     }
-    public String calculateHash()
+    /*public String calculateHash()
     {
         return "a1#";
-    }
+    }*/
     public void updateBlock(Visit v1)
     {
         v.add(v1);
@@ -60,7 +71,7 @@ public class Block
             Doctor[n++]=v1.DocName;
         }
     }
-    public void printmed()
+    /*public void printmed()
     {
        for(int i=0;i<n;i++)
        {
@@ -80,13 +91,19 @@ public class Block
                }
            }
        }
-    }
+    }*/
     public void printAll()
     {
         System.out.println("Uid "+uid);
         System.out.println("Name "+PatientName);
-        System.out.println("Age "+v.get(0).age);
+        //System.out.println("Age "+v.get(0).age);
         System.out.println("Weight "+weight);
-        printmed();
+        System.out.println("Medicines::::");
+        for(int i=0;i<v.size();i++)
+        {
+            System.out.println("Medicine= "+v.get(i).med);
+        }
+       // System.out.println("Medicine "+);
+        //printmed();
     }
 }

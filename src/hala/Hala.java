@@ -4,20 +4,91 @@
  * and open the template in the editor.
  */
 package hala;
+//import bldm;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.*;
 import java.io.*;
 import java.util.Date;
 import java.time.Month;
 import java.text.SimpleDateFormat;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author ANISH and AKHIL Mittal
  */
 public class Hala 
-{
+{ 
+    //Connection c;
     public static void main(String[] args) throws Exception
     {
-        ArrayList<Block> chain=new ArrayList<Block> ();
+        ArrayList<Block> chain=new ArrayList<Block>();
+        try
+        {
+            Connection c=bldbm.dbconnect();
+        Statement statement=null;
+        statement = c.createStatement();
+        String s = "SELECT * FROM Block";
+        int uid=0;
+        ResultSet rs = statement.executeQuery(s);
+        while(rs.next())
+        {
+            uid=rs.getInt("UID");
+            ArrayList<Visit> v=new ArrayList<Visit>();
+            Connection c1=vdbm.dbconnect();
+            Statement statement1 = c1.createStatement();
+            String s1 = "SELECT * FROM Visit";
+            ResultSet rs1 = statement1.executeQuery(s1);
+            int uid2=0;
+            while(rs1.next())
+            {
+                uid2=rs1.getInt("UID");
+                if(uid==uid2)
+                {
+                    Visit v1= new Visit(rs1.getString("DocName"),rs1.getString("DOV"),rs1.getInt("weight"),rs1.getString("Medicine"),rs1.getString("Remarks"));
+                    v.add(v1);
+                   // v.add(new Visit())
+                }
+            }
+            Block b1=new Block(rs.getInt("UID"),rs.getString("Name"),rs.getString("DOB"),rs.getInt("Weight"),v,rs.getString("HASH"),rs.getString("PreviousHash"));
+            chain.add(b1);
+         }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e+" loll");
+        }
+        //System.out.pr
+        for(int j=0;j<chain.size();j++)
+        {
+            chain.get(j).printAll();
+            System.out.println("*********");
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*Scanner sc=new Scanner (System.in);
+        System.out.println("Enter uid");
+        int uid=sc.nextInt();*/
+        /*ArrayList<Block> chain=new ArrayList<Block> ();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
         Scanner sc=new Scanner (System.in);
         System.out.println("Enter uid");
@@ -104,6 +175,6 @@ public class Hala
         {
             chain.get(j).printAll();
             System.out.println("*********");
-        }
+        }*/
     }
 }
