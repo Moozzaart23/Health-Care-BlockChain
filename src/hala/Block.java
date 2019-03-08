@@ -71,39 +71,18 @@ public class Block
             Doctor[n++]=v1.DocName;
         }
     }
-    /*public void printmed()
-    {
-       for(int i=0;i<n;i++)
-       {
-           for(int j=no-1;j>=0;j--)
-           {
-               Visit v1=v.get(j);
-               if(v1.DocName==Doctor[i])
-               {
-                   System.out.println("Doctor Name: "+v1.DocName);
-                   int l=v1.med.length;
-                   for(int k=0;k<l;k++)
-                   {
-                       System.out.print(v1.med[k]+" ");
-                   }
-                   System.out.println();
-                   break;
-               }
-           }
-       }
-    }*/
     public void printAll()
     {
         System.out.println("Uid "+uid);
         System.out.println("Name "+PatientName);
         //System.out.println("Age "+v.get(0).age);
         System.out.println("Weight "+weight);
-        System.out.println("Medicines::::");
+        System.out.println("MEDICINES and REMARKS ::::");
         for(int i=0;i<v.size();i++)
         {
             System.out.println("Medicine= "+v.get(i).med);
+            System.out.println("Remarks= "+v.get(i).remarks);
         }
-       // System.out.println("Medicine "+);
-        //printmed();
+        
     }
 }
