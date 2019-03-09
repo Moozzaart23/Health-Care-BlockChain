@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package hala;
-//import bldm;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.*;
@@ -57,7 +56,6 @@ public class Hala
                     {
                         Visit v1= new Visit(rs1.getString("DocName"),rs1.getString("DOV"),rs1.getInt("weight"),rs1.getString("Medicine"),rs1.getString("Remarks"));
                         v.add(v1);
-                       // v.add(new Visit())
                     }
                 }
                 Block b1=new Block(rs.getInt("UID"),rs.getString("Name"),rs.getString("DOB"),rs.getInt("Weight"),v,rs.getString("HASH"),rs.getString("PreviousHash"));
@@ -76,7 +74,7 @@ public class Hala
             System.out.println("                        *********");
         }
         
-        /*Scanner sc=new Scanner(System.in);
+        Scanner sc=new Scanner(System.in);
         int uid;String lol;
         System.out.println("Enter Uid:");
         lol=sc.nextLine();
@@ -157,6 +155,6 @@ public class Hala
             {
               System.out.println("Cannot Enter");
             }
-        }*/
+        }
     }
 }
