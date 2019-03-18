@@ -28,6 +28,7 @@ public class Hala
     public static void main(String[] args) throws Exception
     {
         ArrayList<Block> chain=new ArrayList<Block>();
+        SHA256 a=new SHA256();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
         Connection c2=bldbm.dbconnect();
         Connection c3=vdbm.dbconnect();
@@ -88,20 +89,23 @@ public class Hala
             ZeroKnowledge zk=new ZeroKnowledge(x,uid);
             if(!zk.verify())
             {
+                System.out.println();
                 System.out.println("The details of the patient already exists");
+                System.out.println("Enter Doctor Name");
                 String name=chain.get(i).PatientName;
-                Date d1 = sdf.parse("27/12/1998");
+                String Doc_Name=sc.nextLine();
+                Date d1 = sdf.parse("27/12/2019");
                 String date =sdf.format(d1);
                 int weight=chain.get(i).weight;
-                String med="Pre-Proo";
-                String remarks="Mess me Mat Khaa!!!!";
+                String med="Saridon";
+                String remarks="Headache";
                 try
                 {
                     String query1="insert into Visit values(?,?,?,?,?,?)";
                     PreparedStatement ps1=null;
                     ps1=c4.prepareStatement(query1);     
                     ps1.setInt(1,uid);
-                    ps1.setString(2,name);
+                    ps1.setString(2,Doc_Name);
                     ps1.setString(3,date);
                     ps1.setInt(4,weight);
                     ps1.setString(5, med);
@@ -119,12 +123,15 @@ public class Hala
         if(i==l)
         {
             Date d1 = sdf.parse("22/12/1998");
-            System.out.println("Enter Name,weight,lol");
+            System.out.println("Enter Name,Doc_Name,weight");
             String name=sc.nextLine();
+            String Doc=sc.nextLine();
             int weight=sc.nextInt();
             String date =sdf.format(d1);
-            String med="Nahi lungaaa";
-            String remarks="Muh me Leleee";
+            String med="Zapiz-0.25";
+            String remarks="Depression";
+            String ph=chain.get(i-1).previous_hash;
+            String hash=a.getSHA256Hash(ph+name);
             try
             {
                 String query="insert into Block values(?,?,?,?,?,?)";
@@ -134,8 +141,8 @@ public class Hala
                 ps.setString(2,name);
                 ps.setString(3,date);
                 ps.setInt(4,weight);
-                ps.setString(5,"lol");
-                ps.setString(6,"a#");
+                ps.setString(5,hash);
+                ps.setString(6,ph);
                 ps.execute();
                 
                 
@@ -143,7 +150,7 @@ public class Hala
                 PreparedStatement ps1=null;
                 ps1=c3.prepareStatement(query1);     
                 ps1.setInt(1,uid);
-                ps1.setString(2,name);
+                ps1.setString(2,Doc);
                 ps1.setString(3,date);
                 ps1.setInt(4,weight);
                 ps1.setString(5, med);
