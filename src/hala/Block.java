@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package hala;
+import java.io.Serializable;
 import java.util.*;
 import java.util.Date;
 import java.time.Month;
@@ -12,14 +13,16 @@ import java.text.SimpleDateFormat;
  *
  * @author ANISH
  */
-public class Block 
+public class Block implements Serializable
 {
+    private static final long serialVersionUID = 6529685098267757692L;
     int uid;
     String PatientName;
     long age;
     int weight;
     int no=0;
     Date dob;
+    String x;
     //String Allergies[];
     String Doctor[]=new String[100];
     int n=0;
@@ -29,6 +32,7 @@ public class Block
     public Block(int id,String name,String d11,int w,ArrayList<Visit> v1,String h,String ph)
     {
         //dob=d1;
+        x=d11;
         try
         {
             dob=new SimpleDateFormat("dd/MM/yyyy").parse(d11);
@@ -85,4 +89,8 @@ public class Block
         }
         
     }
+    /*public String toString()
+    {
+	return PatientName;
+    }*/
 }

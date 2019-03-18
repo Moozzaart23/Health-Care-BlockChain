@@ -14,15 +14,18 @@ import java.util.concurrent.*;
  *
  * @author ANISH
  */
-public class Visit
+public class Visit implements Serializable
 {
+    private static final long serialVersionUID = 6529685098267757690L;
     Date d1;
     String DocName="";
     long age;int weight;
     String med;
     String remarks="";
+    String u;
     public Visit(String doc,String d22,int w,String m,String r)
     {
+        u=d22;
         d1=new Date();
         DocName=doc;
         //d1=new Date();
@@ -48,4 +51,9 @@ public class Visit
         }*/
         remarks=r;
     }
+    
+    /*public String toString()
+    {
+	return DocName;
+    }*/
 }

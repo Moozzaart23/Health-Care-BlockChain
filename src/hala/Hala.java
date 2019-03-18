@@ -16,11 +16,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import java.lang.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 /**
  *
- * @author ANISH and AKHIL Mittal
+ * @author ANISH DEY and AKHIL MITTAL
  */
 public class Hala 
 { 
@@ -75,11 +76,42 @@ public class Hala
             System.out.println("                        *********");
         }
         
-        Scanner sc=new Scanner(System.in);
+        
+        Block b1=null;
+        Visit v1=null;
+        boolean isConn=false;
+        while(!isConn)
+	{
+            try
+            {
+		ServerSocket ss=new ServerSocket(4446);
+                Socket s=ss.accept();
+		System.out.println("Connected");
+                isConn=true;
+		ObjectInputStream i=new ObjectInputStream(s.getInputStream());
+                b1=(Block)i.readObject();
+                ss.close();
+            }
+            catch(Exception e)
+            {
+		e.printStackTrace();
+            }
+	}
+        
+        System.out.println(b1.PatientName);
+        v1=b1.v.get(0);
+        System.out.println(v1.DocName);
+        
+        
+        
+        
+        /*Scanner sc=new Scanner(System.in);
         int uid;String lol;
         System.out.println("Enter Uid:");
         lol=sc.nextLine();
-        uid=Integer.parseInt(lol);
+        uid=Integer.parseInt(lol);*/
+        
+        int uid=b1.uid;
         int l=chain.size();
         //System.out.println("Size= "+l);
         int i=0;
@@ -91,14 +123,14 @@ public class Hala
             {
                 System.out.println();
                 System.out.println("The details of the patient already exists");
-                System.out.println("Enter Doctor Name");
+                //System.out.println("Enter Doctor Name");
                 String name=chain.get(i).PatientName;
-                String Doc_Name=sc.nextLine();
-                Date d1 = sdf.parse("27/12/2019");
+                String Doc_Name=v1.DocName;
+                Date d1 = sdf.parse(v1.u);
                 String date =sdf.format(d1);
                 int weight=chain.get(i).weight;
-                String med="Saridon";
-                String remarks="Headache";
+                String med=v1.med;
+                String remarks=v1.remarks;
                 try
                 {
                     String query1="insert into Visit values(?,?,?,?,?,?)";
@@ -122,14 +154,14 @@ public class Hala
         }
         if(i==l)
         {
-            Date d1 = sdf.parse("22/12/1998");
-            System.out.println("Enter Name,Doc_Name,weight");
-            String name=sc.nextLine();
-            String Doc=sc.nextLine();
-            int weight=sc.nextInt();
+            Date d1 = sdf.parse(b1.x);
+            //System.out.println("Enter Name,Doc_Name,weight");
+            String name=b1.PatientName;
+            String Doc=v1.DocName;
+            int weight=b1.weight;
             String date =sdf.format(d1);
-            String med="Zapiz-0.25";
-            String remarks="Depression";
+            String med=v1.med;
+            String remarks=v1.remarks;
             String ph=chain.get(i-1).previous_hash;
             String hash=a.getSHA256Hash(ph+name);
             try
