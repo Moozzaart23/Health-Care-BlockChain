@@ -80,11 +80,12 @@ public class Hala
         Block b1=null;
         Visit v1=null;
         boolean isConn=false;
+        int port1=5557;
         while(!isConn)
 	{
             try
             {
-		ServerSocket ss=new ServerSocket(4446);
+		ServerSocket ss=new ServerSocket(5559);
                 Socket s=ss.accept();
 		System.out.println("Connected");
                 isConn=true;
@@ -98,18 +99,7 @@ public class Hala
             }
 	}
         
-        System.out.println(b1.PatientName);
-        v1=b1.v.get(0);
-        System.out.println(v1.DocName);
-        
-        
-        
-        
-        /*Scanner sc=new Scanner(System.in);
-        int uid;String lol;
-        System.out.println("Enter Uid:");
-        lol=sc.nextLine();
-        uid=Integer.parseInt(lol);*/
+      v1=b1.v.get(0);
         
         int uid=b1.uid;
         int l=chain.size();
@@ -195,5 +185,38 @@ public class Hala
               System.out.println("Cannot Enter");
             }
         }
+        String ip[]={"192.168.43.42","192.168.43.160"};
+        int x=-1;
+        int port=8887;
+        if(port1==5557)
+            x=0;
+        else
+            x=1;
+        
+        for(int j=0;j<2;j++)
+        {
+            boolean isConn1=false;
+            port=port+1;
+            //while(!isConn1)
+            //{
+                try
+                {
+                    Socket s=new Socket(ip[j],port);
+                    System.out.println("Connected");
+                    isConn1=true;
+                    ObjectOutputStream o=new ObjectOutputStream(s.getOutputStream());
+                    //System.out.println(a);
+                    o.writeObject(b1);
+                    s.close();
+                    o.flush();
+                    o.close();
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+            //}
+        }
+        
     }
 }
