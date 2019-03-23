@@ -25,7 +25,6 @@ import java.net.Socket;
  */
 public class Hala 
 { 
-    //Connection c;
     public static void main(String[] args) throws Exception
     {
         ArrayList<Block> chain=new ArrayList<Block>();
@@ -81,6 +80,7 @@ public class Hala
         Visit v1=null;
         boolean isConn=false;
         int port1=5557;
+        
         while(!isConn)
 	{
             try
@@ -100,123 +100,112 @@ public class Hala
 	}
         
       v1=b1.v.get(0);
-        
-        int uid=b1.uid;
-        int l=chain.size();
-        //System.out.println("Size= "+l);
-        int i=0;
-        for(i=0;i<chain.size();i++)
+      int uid=b1.uid;
+      int l=chain.size();
+      int i=0;
+      for(i=0;i<chain.size();i++)
+      {
+        int x=chain.get(i).uid;
+        ZeroKnowledge zk=new ZeroKnowledge(x,uid);
+        if(!zk.verify())
         {
-            int x=chain.get(i).uid;
-            ZeroKnowledge zk=new ZeroKnowledge(x,uid);
-            if(!zk.verify())
-            {
-                System.out.println();
-                System.out.println("The details of the patient already exists");
-                //System.out.println("Enter Doctor Name");
-                String name=chain.get(i).PatientName;
-                String Doc_Name=v1.DocName;
-                Date d1 = sdf.parse(v1.u);
-                String date =sdf.format(d1);
-                int weight=chain.get(i).weight;
-                String med=v1.med;
-                String remarks=v1.remarks;
-                try
-                {
-                    String query1="insert into Visit values(?,?,?,?,?,?)";
-                    PreparedStatement ps1=null;
-                    ps1=c4.prepareStatement(query1);     
-                    ps1.setInt(1,uid);
-                    ps1.setString(2,Doc_Name);
-                    ps1.setString(3,date);
-                    ps1.setInt(4,weight);
-                    ps1.setString(5, med);
-                    ps1.setString(6,remarks);
-                    ps1.execute();
-
-                }
-                catch (java.sql.SQLException e)
-                {
-                  System.out.println("Cannot Enter");
-                }
-                break;
-            }
-        }
-        if(i==l)
-        {
-            Date d1 = sdf.parse(b1.x);
-            //System.out.println("Enter Name,Doc_Name,weight");
-            String name=b1.PatientName;
-            String Doc=v1.DocName;
-            int weight=b1.weight;
+            System.out.println();
+            System.out.println("The details of the patient already exists");
+            //System.out.println("Enter Doctor Name");
+            String name=chain.get(i).PatientName;
+            String Doc_Name=v1.DocName;
+            Date d1 = sdf.parse(v1.u);
             String date =sdf.format(d1);
+            int weight=chain.get(i).weight;
             String med=v1.med;
             String remarks=v1.remarks;
-            String ph=chain.get(i-1).previous_hash;
-            String hash=a.getSHA256Hash(ph+name);
             try
             {
-                String query="insert into Block values(?,?,?,?,?,?)";
-                PreparedStatement ps=null;
-                ps=c2.prepareStatement(query);     
-                ps.setInt(1,uid);
-                ps.setString(2,name);
-                ps.setString(3,date);
-                ps.setInt(4,weight);
-                ps.setString(5,hash);
-                ps.setString(6,ph);
-                ps.execute();
-                
-                
                 String query1="insert into Visit values(?,?,?,?,?,?)";
                 PreparedStatement ps1=null;
-                ps1=c3.prepareStatement(query1);     
+                ps1=c4.prepareStatement(query1);     
                 ps1.setInt(1,uid);
-                ps1.setString(2,Doc);
+                ps1.setString(2,Doc_Name);
                 ps1.setString(3,date);
                 ps1.setInt(4,weight);
                 ps1.setString(5, med);
                 ps1.setString(6,remarks);
                 ps1.execute();
-                
             }
             catch (java.sql.SQLException e)
             {
-              System.out.println("Cannot Enter");
+               System.out.println("Cannot Enter");
             }
-        }
-        String ip[]={"192.168.43.42","192.168.43.160"};
-        int x=-1;
-        int port=8887;
-        if(port1==5557)
-            x=0;
-        else
-            x=1;
-        
-        for(int j=0;j<2;j++)
+            break;
+         }
+      }
+      if(i==l)
+      {
+        Date d1 = sdf.parse(b1.x);
+        //System.out.println("Enter Name,Doc_Name,weight");
+        String name=b1.PatientName;
+        String Doc=v1.DocName;
+        int weight=b1.weight;
+        String date =sdf.format(d1);
+        String med=v1.med;
+        String remarks=v1.remarks;
+        String ph=chain.get(i-1).previous_hash;
+        String hash=a.getSHA256Hash(ph+name);
+        try
         {
-            boolean isConn1=false;
-            port=port+1;
-            //while(!isConn1)
-            //{
-                try
-                {
-                    Socket s=new Socket(ip[j],port);
-                    System.out.println("Connected");
-                    isConn1=true;
-                    ObjectOutputStream o=new ObjectOutputStream(s.getOutputStream());
-                    //System.out.println(a);
-                    o.writeObject(b1);
-                    s.close();
-                    o.flush();
-                    o.close();
-                }
-                catch(Exception e)
-                {
-                    e.printStackTrace();
-                }
-            //}
+            String query="insert into Block values(?,?,?,?,?,?)";
+            PreparedStatement ps=null;
+            ps=c2.prepareStatement(query);     
+            ps.setInt(1,uid);
+            ps.setString(2,name);
+            ps.setString(3,date);
+            ps.setInt(4,weight);
+            ps.setString(5,hash);
+            ps.setString(6,ph);
+            ps.execute();
+            String query1="insert into Visit values(?,?,?,?,?,?)";
+            PreparedStatement ps1=null;
+            ps1=c3.prepareStatement(query1);     
+            ps1.setInt(1,uid);
+            ps1.setString(2,Doc);
+            ps1.setString(3,date);
+            ps1.setInt(4,weight);
+            ps1.setString(5, med);
+            ps1.setString(6,remarks);
+            ps1.execute();      
         }
-        
+        catch (java.sql.SQLException e)
+        {
+            System.out.println("Cannot Enter");
+        }
+     }
+      String ip[]={"192.168.43.42","192.168.43.160"};
+      int x=-1;
+      int port=8887;
+      if(port1==5557)
+          x=0;
+      else
+          x=1;
+      for(int j=0;j<2;j++)
+      {
+        boolean isConn1=false;
+        port=port+1;
+        try
+        {
+            Socket s=new Socket(ip[j],port);
+            System.out.println("Connected");
+            isConn1=true;
+            ObjectOutputStream o=new ObjectOutputStream(s.getOutputStream());
+            o.writeObject(b1);
+            s.close();
+            o.flush();
+            o.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+      }
     }
+    
 }

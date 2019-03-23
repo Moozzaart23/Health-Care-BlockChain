@@ -20,12 +20,10 @@ public class bldbm {
     {
     Class.forName("org.sqlite.JDBC");
     Connection conn=DriverManager.getConnection("jdbc:sqlite:E:\\BPHC\\Crypto\\Hala\\databases\\Block.sqlite");
-    //JOptionPane.showMessageDialog(null ,"connected");
     return conn;
     }
     catch(Exception e)
     {
-    //JOptionPane.showMessageDialog(null ,e);
     System.out.println(e);
     return null;
     }

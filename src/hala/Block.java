@@ -54,10 +54,6 @@ public class Block implements Serializable
         previous_hash=ph;
         hash=h;
     }
-    /*public String calculateHash()
-    {
-        return "a1#";
-    }*/
     public void updateBlock(Visit v1)
     {
         v.add(v1);
@@ -87,10 +83,5 @@ public class Block implements Serializable
             System.out.println("Medicine= "+v.get(i).med);
             System.out.println("Remarks= "+v.get(i).remarks);
         }
-        
     }
-    /*public String toString()
-    {
-	return PatientName;
-    }*/
 }
