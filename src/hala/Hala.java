@@ -179,7 +179,7 @@ public class Hala
             System.out.println("Cannot Enter");
         }
      }
-      String ip[]={"192.168.43.42","192.168.43.160"};
+      String ip[]={"192.168.43.42","192.168.43.142"};
       int x=-1;
       int port=8887;
       if(port1==5557)
