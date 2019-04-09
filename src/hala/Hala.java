@@ -79,13 +79,13 @@ public class Hala
         Block b1=null;
         Visit v1=null;
         boolean isConn=false;
-        int port1=5557;
+        int port1=5559;
         
         while(!isConn)
 	{
             try
             {
-		ServerSocket ss=new ServerSocket(5559);
+		ServerSocket ss=new ServerSocket(port1);
                 Socket s=ss.accept();
 		System.out.println("Connected");
                 isConn=true;
@@ -190,6 +190,8 @@ public class Hala
       {
         boolean isConn1=false;
         port=port+1;
+        if(x==j)
+            continue;
         try
         {
             Socket s=new Socket(ip[j],port);
