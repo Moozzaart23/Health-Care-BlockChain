@@ -149,7 +149,7 @@ public class Hala
         String date =sdf.format(d1);
         String med=v1.med;
         String remarks=v1.remarks;
-        String ph=chain.get(i-1).previous_hash;
+        String ph=chain.get(i-1).hash;
         String hash=a.getSHA256Hash(ph+name);
         try
         {
