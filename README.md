@@ -1,7 +1,10 @@
 # Halla
 
 
-BLOCKCHAIN IN STORING MEDICAL HEALTH RECORDS
+                                    BLOCKCHAIN IN STORING MEDICAL HEALTH RECORDS
+
+
+
 The folder Server hosts a hotspot network and both the clients namely Client_Amogh and Client_Akhil can request to add a 
 transaction and the transaction gets reflected in all the other laptops.
 Java is used to implement this entire Block Chain for medical health records. Java TCP Socket Programming is used to establish connection.
@@ -24,4 +27,4 @@ NOTE: All systems should be connected to same Wi-Fi network
 
 
 Collaborations:
-Akhil Agrawal(@KaNeKi)
+Akhil Agrawal(@KaNeKi2298)
