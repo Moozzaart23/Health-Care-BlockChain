@@ -79,7 +79,7 @@ public class Hala
         Block b1=null;
         Visit v1=null;
         boolean isConn=false;
-        int port1=5559;
+        int port1=5557;
         
         while(!isConn)
 	{
